@@ -166,8 +166,8 @@ myfunc.insertdeal = async function(querytype){
     }
     else{
         myfunc.maketable(resobj[1][0]);
-        myfunc.download("akraije.txt",resobj[1][1]);
-        myfunc.download("akraigviya.csv",resobj[1][2]);
+        myfunc.download(`${document.getElementById("akrainum_in").value}.txt`,resobj[1][1]);
+        myfunc.download(`${document.getElementById("akrainum_in").value}.csv`,resobj[1][2]);
     }
     
 }
@@ -230,6 +230,7 @@ myfunc.loaddeal = async function(akrainum){
     fdata.append("dealyear", "");
     fdata.append("supid", "");
     fdata.append("supname", "");
+    fdata.append("addfile", 0);
 
     fdata.append("request", "loaddeal");
 
