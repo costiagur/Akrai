@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Akrai Deals Entry</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+      dialog {border-style: outset; background-color:rgb(242, 247, 171)}
+      fieldset{border-style: outset;}
+      .inputtable td{
+            padding: 0.5em;
+        }
+      .bottombtns{width: 150px; /* Set the width */
+            height: 50px; /* Set the height */
+            padding: 8px; /* Set the padding */
+            background-color: #e0c217e0; /* Background color */
+            color: rgb(15, 99, 3); /* Text color */
+            border: none; /* Remove border */
+            text-align: center; /* Center text */
+            display: inline-block; /* Align buttons inline */
+            font-size: 16px; /* Set font size */
+            margin: 5px; /* Add some margin */}
+
+      input[type="number"]{
+          text-align: center;
+        }
+
+      input[type="text"]{
+            direction:unset;
+        }
+
+      #list_tb {
+            font-family: Arial, Helvetica, sans-serif;
+            }
+
+      #list_tb th {
+            text-align: center;
+            font-weight: bold;
+            padding-bottom: 1em;
+            background-color: ghostwhite;
+        }
+
+      #list_tb td {
+            text-align: right;
+            font-weight: normal;
+        }
+    
+    </style>       
+  </head>
+
+  <body data-codeword="myakrai">
+    <dialog id="msg_dg">
+      <fieldset><strong><legend id="msg_title"></strong></legend>
+        <p id="msg_txt"></p>
+        <button onclick="msg_dg.close();msg_txt.innerHTML = '';msg_title.innerHTML =''" class="w3-button w3-border w3-round">Close</button>
+    </fieldset>
+    </dialog>
+    <dialog id="response_dg">
+      <fieldset><strong><legend>Responses</strong></legend>
+        <p name="inres" id="in1_res"></p>
+        <button onclick="myfunc.resp_close()" class="w3-button w3-border w3-round">Close</button>
+      </fieldset>
+    </dialog>
+     <h2 style="text-align:center;">עסקאות אקראי</h2> 
+
+    <div class="w3-container w3-cell" style="width:30%">
+      <table class="inputtable">
+          <tr>
+              <td>מספר טופס עסקת אקראי</td>
+              <td>
+                  <input type="number" id="akrainum_in" class="w3-input" required>
+              </td>
+          </tr>
+           <tr>
+              <td>תאריך עסקה</td>
+              <td>
+                  <input type="date" id="dealdate_in" class="w3-input" onchange="myfunc.setyear()" required>
+              </td>
+          </tr>
+          <tr>
+              <td>שנה</td>
+              <td>
+                  <input type="number" id="dealyear_in" class="w3-input">
+              </td>
+          </tr>
+          <tr>
+              <td>מספר עוסק</td>
+              <td>
+                    <input type="number" id="supid_in" class="in w3-input" value=0 style="text-align: center" required>
+              </td>
+          </tr>
+          <tr>
+              <td>שם הספק</td>
+              <td>
+                  <input type="text" id="supname_in" class="in w3-input" required>
+              </td>
+          </tr>
+          <tr>
+              <td>תיאור העסקה</td>
+              <td>
+                  <input type="text" id="descr_in" class="in w3-input" required>
+              </td>
+          </tr>
+          <tr>
+              <td>סכום עסקה ללא מעם</td>
+              <td>
+                  <input dir="auto" type="number" id="dealamount_in" class="w3-input" value=0 onchange="myfunc.calcvat(this)" required>
+              </td>
+          </tr>
+          <tr>
+              <td>סכום מעם</td>
+              <td>
+                  <input dir="auto" type="number" id="vatamount_in" class="w3-input" value=0 onchange="myfunc.calcvat(this)" required>
+              </td>
+          </tr>
+          <tr>
+              <td>מספר נכס</td>
+              <td>
+                  <input dir="auto" type="number" id="nehes_in" class="w3-input" value=0 required>
+              </td>
+          </tr>
+          <tr>
+            <td>מספר שירות</td>
+            <td>
+              <input dir="auto" type="number" id="shirut_in" class="w3-input" value=0 required>
+            </td>
+          </tr>
+          <tr>
+            <td>טופס עסקת אקראי</td>
+            <td>
+              <input type="file" id="loaddeal_in" class="w3-input">
+            </td>
+          </tr>
+      </table>
+      
+      <br>
+      
+      <div>
+          <a id="formpath_in" style="visibility: hidden;" dir="ltr"></a>
+      </div>
+
+      <br>
+
+      <div class="w3-container w3-cell">
+        <p>
+        <button id="search_bt" class="bottombtns" onclick="myfunc.searchdeals()">חפש</button>
+        </p>
+        <p>
+        <button id="clear_bt" class="bottombtns" onclick="myfunc.clearfields()">נקה</button>
+        </p>
+      </div>
+      
+      <div class="w3-container w3-cell">
+        <p>
+        <button id="create_bt" class="bottombtns" onclick="myfunc.insertdeal('insert')">צור</button>
+        </p>
+        <p>
+        <button id="update_bt" class="bottombtns" onclick="myfunc.insertdeal('update')">עדכן</button>
+        </p>
+      </div>
+
+      <div class="w3-container w3-cell">
+        <p>
+        <button id="delete_bt" class="bottombtns" onclick="myfunc.deletedeal()">מחק</button>
+        </p>
+        <p>
+        <button id="search_bt" class="bottombtns" onclick="myfunc.searchdeals(true)">דוח</button>
+        </p>
+      </div>
+  </div>
+
+  
+  <div class="w3-container w3-cell w3-cell-top" style="width:70%">    
+
+      <table id="list_tb" class="w3-table w3-bordered w3-responsive">
+        <thead>
+          <tr>
+              <th>מספר עסקה</th>
+              <th>תאריך עסקה</th>
+              <th>שנה</th>
+              <th>מספר עוסק</th>
+              <th>שם עוסק</th>
+              <th>תיאור עסקה</th>
+              <th>סכום עסקה</th>
+              <th>מעם</th>
+              <th>סכום עסקה כולל מעם</th>
+              <th>קובץ עסקה</th>
+          </tr>
+        </thead>
+        <tbody id="list_tb_body"></tbody>
+      </table>
+      
+  </div>
+    
+  </body>
+
+  <script src='uiclient.js'></script>
+  <script src='myfunc.js'></script>
+
+</html>
